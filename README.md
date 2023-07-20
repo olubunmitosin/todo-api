@@ -1,4 +1,4 @@
-# TodoAPI Serice
+# TodoAPI Service
 
 ## Project setup
 ```
