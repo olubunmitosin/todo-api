@@ -35,7 +35,6 @@
     "express": "^4.18.2",
     "express-pino-logger": "^7.0.0",
     "express-session": "^1.17.3",
-    "express-validator": "^6.14.2",
     "file-type": "^18.0.0",
     "jsonwebtoken": "^9.0.0",
     "locutus": "^2.0.16",
@@ -46,12 +45,10 @@
     "nocache": "^3.0.4",
     "node-input-validator": "^4.5.1",
     "nodemon": "^2.0.20",
-    "oauth2-server": "^3.1.1",
     "path": "^0.12.7",
     "pino-pretty": "^9.1.1",
     "winston": "^3.8.2",
-    "winston-daily-rotate-file": "^4.7.1",
-    "xlsx": "^0.18.5"
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "mongoosejs-cli": "^1.0.7"

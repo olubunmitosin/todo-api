@@ -20,6 +20,11 @@ exports.getAllTodos = async (req, res) => {
     // Get initial response parameters
     let [responseData, statusValue, error] = initialResponseParameters();
     let responseMessage;
+    // Validate request parameters
+    const [passed, validationResponse] = await validateRequest(req, {'user_id': 'required'}, res, 'query');
+    if (!passed) {
+        return res.send(validationResponse);
+    }
     // Get auth user
     const authUser = res.locals.user;
 
@@ -27,7 +32,7 @@ exports.getAllTodos = async (req, res) => {
     try {
 
         let results = [];
-        let todos = await models.Todo.find({}).exec();
+        let todos = await models.Todo.find({user_id: req.query.user_id}).exec();
         todos.forEach((element, index) => {
             results.push({
                 title: element.title,
@@ -200,8 +205,7 @@ exports.updateTodo = async (req, res) => {
             }
 
             delete data.id;
-            await models.Todo.findByIdAndUpdate(todo._id, data);
-
+            await models.Todo.findOneAndUpdate({_id: todo._id, user_id: data.user_id}, data);
             responseMessage = "Todo updated successfully!";
             statusValue = true;
         }
@@ -230,7 +234,7 @@ exports.deleteTodo = async (req, res) => {
     let responseMessage;
     // Validate request parameters
     const [passed, validationResponse] = await validateRequest(req, {
-        'id' : 'required'
+        'id' : 'required', 'user_id': 'required',
     }, res);
 
     if (!passed) {
@@ -242,8 +246,7 @@ exports.deleteTodo = async (req, res) => {
     // Try block
     try {
         const data = req.body;
-      
-        const todo = await models.Todo.findOne({_id: data.id});
+        const todo = await models.Todo.findOne({_id: data.id, user_id: data.user_id});
 
         if (is_null(todo)) {
             responseMessage = "Todo does not exist";

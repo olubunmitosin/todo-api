@@ -1,6 +1,10 @@
 'use strict';
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
+    user_id: {
+      type: Number,
+      required: true
+    },
     title: {
       type: String,
       required: true
